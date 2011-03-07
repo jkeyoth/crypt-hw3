@@ -21,7 +21,7 @@ random.seed(seed if seed!=0 else None)
 
 sbox = []
 for i in xrange(numRows):
-	sbox.append(random.sample(xrange(1000),numCols))
+	sbox.append(random.sample(xrange(10000),numCols))
 
 print sbox
 		
