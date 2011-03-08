@@ -2,6 +2,8 @@
 from hw3hash import run as getHash
 import sys, math
 
+verbose = False
+
 if len(sys.argv) < 4:
 	print "Usage: exhaustive startLength endLength stringToHash"
 
@@ -13,8 +15,8 @@ endNum = int(sys.argv[2])
 #startNum = pow(2,startNum*8)
 #endNum = pow(2,endNum*8)
 
-print "Doing",startNum,"to",endNum
-tries = 0
+if verbose: print "Doing",startNum,"to",endNum
+tries = 1
 for i in xrange(startNum, endNum):
 	try:
 		numCharsNow = int(math.log(i,2)) / 8 + 1
@@ -27,10 +29,16 @@ for i in xrange(startNum, endNum):
 		plain = chr(c) + plain
 		curVal = curVal >> 4
 	if hashToFind == getHash(plain):
-		print "colision found after",tries,"tries"
+		if verbose:
+			print "colision found after",tries,"tries"
+		else:
+			print tries
 		exit(0)
 	tries += 1
 	if i%100000 == 0:
-		print float(i)/endNum * 100,"%"
+		if verbose: print float(i)/endNum * 100,"%"
 
-print "No colision found"
+if verbose:
+	print "No colision found"
+else:
+	print tries
